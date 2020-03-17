@@ -11,21 +11,10 @@
     </header>
 
     <main>
-        <div class="top"></div>
-      <div class="row">
-        <div class="element" v-for="(el,key) in cases" :key="key">
-          <div class="icon">
-            <img :src="`${casesIcons[key]}`" alt="">
-          </div>
-          <transition name="switch" appear mode="out-in">
-            <p class="counter" :key="el">{{formatData(el)}}</p>
-          </transition>
-          <transition name="switch" appear mode="out-in">
-          <p v-if="savedCases && calcDiff(savedCases[key], el)!==0" class="stoper">+ {{ formatData(calcDiff(savedCases[key], el)) }}</p>
-          </transition>
-          <p class="cases">{{key}}</p>
-        </div>
-      </div>
+
+      <Tracker/>
+
+      <TrackerCountry/>
 
       <article>
         <p class="info">results are updated every 10 seconds to keep you informed</p>
@@ -48,53 +37,17 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+import Tracker from '@/components/Tracker.vue';
+import TrackerCountry from '@/components/TrackerCountry.vue';
 
 export default {
   name: 'Home',
-  data() {
-    return {
-      casesIcons: {
-        cases: 'cough.svg',
-        deaths: 'death.svg',
-        recovered: 'plaster.svg',
-      },
-      cases: {
-        cases: 0,
-        deaths: 0,
-        recovered: 0,
-      },
-      savedCases: null,
-    };
+  components: {
+    Tracker,
+    TrackerCountry
   },
-  methods: {
-    getData() {
-      const url = 'https://coronavirus-19-api.herokuapp.com/all';
-      axios.get(url)
-        .then((res) => {
-          console.log(res.data);
-          this.cases = res.data;
-          if (this.savedCases === null) {
-            this.savedCases = this.cases;
-          }
-        }).catch((err) => {
 
-        }).finally(() => {
 
-        });
-    },
-    calcDiff(start, end) {
-      return end - start;
-    },
-    formatData(value) {
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-    },
-  },
-  created() {
-    this.getData();
-    setInterval(() => {
-      this.getData();
-    }, 10000);
-  },
 };
 </script>
 
@@ -130,6 +83,19 @@ export default {
     }
   }
 
+  html {
+    @media (prefers-color-scheme: dark) {
+      background: black;
+      * {
+        color: white !important;
+      }
+
+      img {
+        filter: invert(2) brightness(3);
+      }
+    }
+  }
+
   .header {
     font-size: 3em;
     font-weight: 300;
@@ -159,11 +125,18 @@ export default {
     color: $live-color;
     font-size: 16px;
 
+    @media (prefers-color-scheme: dark) {
+      color: $live-color !important;
+    }
+
     .live-dot {
       height: 5px;
       width: 5px;
       background: $live-color;
       border-radius: 15px;
+      @media (prefers-color-scheme: dark) {
+        background: $live-color;
+      }
       display: block;
       margin-right: 6px;
       margin-left: 10px;
@@ -174,6 +147,16 @@ export default {
   main {
     display: flex;
     flex-direction: column;
+
+    .top {
+      text-align: left;
+      font-size: 2em;
+      margin-top: 25px;
+      @media(max-width: 800px) {
+        padding-left: 10px;
+        font-size: 1.5em;
+      }
+    }
 
     p {
       padding: 0;
@@ -210,6 +193,9 @@ export default {
 
         .counter {
           font-size: 3em;
+          @media (prefers-color-scheme: dark) {
+            color: $live-color !important;
+          }
         }
 
         .cases {

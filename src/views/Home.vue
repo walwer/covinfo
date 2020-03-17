@@ -90,6 +90,7 @@ export default {
     },
   },
   created() {
+    this.getData();
     setInterval(() => {
       this.getData();
     }, 10000);
@@ -100,7 +101,7 @@ export default {
 <style lang="scss">
   article {
     max-width: 1000px;
-    padding: 50px 0;
+    padding: 50px 10px;
     .info {
       color: #999;
     }
@@ -124,11 +125,18 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 30px 0;
+    @media(max-width: 800px) {
+      flex-direction: column-reverse;
+    }
   }
 
   .header {
     font-size: 3em;
     font-weight: 300;
+    @media(max-width: 600px) {
+      font-size: 2em;
+    }
+
   }
   $live-color: #E43447;
   @keyframes pulse {
@@ -144,8 +152,6 @@ export default {
   }
 
   .live-span {
-
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -175,6 +181,9 @@ export default {
     }
 
     .row {
+      @media(max-width: 800px) {
+        flex-direction: column;
+      }
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -182,6 +191,9 @@ export default {
 
       .element {
         margin: 0 40px;
+        @media(max-width: 800px) {
+          margin: 20px 40px;
+        }
         border-radius: 50px;
         .icon {
           img {
@@ -189,6 +201,10 @@ export default {
             padding: 30px;
             width: auto;
             opacity: 0.8;
+            @media(max-width: 600px) {
+              height: 40px;
+              padding: 5px;
+            }
           }
         }
 

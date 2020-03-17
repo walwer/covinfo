@@ -1,6 +1,7 @@
 <template>
   <div v-if="display">
     <p class="top">In your country ({{country}})</p>
+    <p class="subheader">based on your IP</p>
     <div class="row">
       <div class="element" v-for="key in displayedCases" :key="key">
         <div class="icon">

@@ -158,6 +158,11 @@ export default {
       }
     }
 
+    .subheader {
+      color: #999;
+      font-size: 1em;
+    }
+
     p {
       padding: 0;
       margin: 0;

@@ -1,6 +1,9 @@
 <template>
   <div>
     <p class="top">Global data</p>
+    <transition name="switch" mode="out-in" appear>
+    <p :key="time" class="last-update">Last updated: {{time}}</p>
+    </transition>
     <div class="row">
       <div class="element" v-for="(el,key) in cases" :key="key">
         <div class="icon">
@@ -29,6 +32,7 @@
           deaths: 'death.svg',
           recovered: 'plaster.svg',
         },
+        time: '',
         cases: {
           cases: 0,
           deaths: 0,
@@ -43,6 +47,7 @@
         axios.get(url)
           .then((res) => {
             this.cases = res.data;
+            this.time = new Date().toLocaleString();
             if (this.savedCases === null) {
               this.savedCases = this.cases;
             }

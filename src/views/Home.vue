@@ -153,14 +153,27 @@ export default {
       font-size: 2em;
       margin-top: 25px;
       @media(max-width: 800px) {
-        padding-left: 10px;
         font-size: 1.5em;
+        text-align: center;
+      }
+    }
+
+    .last-update {
+      text-align: left;
+      padding: 10px 0;
+      color: #666 !important;
+      @media(max-width: 800px) {
+        text-align: center;
       }
     }
 
     .subheader {
       color: #999;
       font-size: 1em;
+      text-align: left;
+      @media(max-width: 800px) {
+        text-align: center;
+      }
     }
 
     p {

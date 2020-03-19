@@ -2,6 +2,9 @@
   <div v-if="display">
     <p class="top">In your country ({{country}})</p>
     <p class="subheader">based on your IP</p>
+    <transition name="switch" mode="out-in" appear>
+      <p :key="time" class="last-update">Last updated: {{time}}</p>
+    </transition>
     <div class="row">
       <div class="element" v-for="key in displayedCases" :key="key">
         <div class="icon">
@@ -33,6 +36,7 @@
           deaths: 'death.svg',
           recovered: 'plaster.svg',
         },
+        time: '',
         cases: {
           cases: 0,
           deaths: 0,
@@ -77,6 +81,7 @@
               if (this.savedCases === null) {
                 this.savedCases = this.cases;
               }
+              this.time = new Date().toLocaleString();
               this.display = true;
             } else {
               this.display = false;
